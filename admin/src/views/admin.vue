@@ -354,7 +354,7 @@
 
                 <ul class="nav nav-list">
                     <li class="" id="welcome-sidebar">
-                        <router-link to="/admin/welcome">
+                        <router-link to="/welcome">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> 欢迎 </span>
                         </router-link>
@@ -405,7 +405,7 @@
 
                         <ul class="submenu">
                             <li class="active" id="business-chapter-sidebar">
-                                <router-link to="/admin/business/chapter">
+                                <router-link to="/business/chapter">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     大章管理
                                 </router-link>
@@ -479,7 +479,7 @@
         },
         methods: {
             login() {
-                this.$router.push("/admin")
+                this.$router.push("/welcome")
             },
             /**
              * 菜单激活样式，id是当前点击的菜单的id
