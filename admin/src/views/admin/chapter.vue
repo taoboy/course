@@ -110,21 +110,21 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" placeholder="名称">
+                                    <input v-model="chapter.name" class="form-control" placeholder="名称">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">课程ID</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" placeholder="课程ID">
+                                    <input v-model="chapter.courseId" class="form-control" placeholder="课程ID">
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary">保存</button>
+                        <button type="button" class="btn btn-primary" v-on:click="save">保存</button>
                     </div>
                 </div>
             </div>
@@ -140,6 +140,7 @@
         components: {Pagination},
         data:function(){
             return {
+                chapter:{},
                 chapters:[]
             }
         },
@@ -155,6 +156,7 @@
                 let _this = this;
                 $(".modal").modal("show");
             },
+
             list(page){
                 let _this = this;
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
@@ -165,6 +167,14 @@
                         console.log("查询大章列表结果：",response);
                         _this.chapters = response.data.list;
                         _this.$refs.pagination.render(page,response.data.total)
+                    })
+            },
+
+            save(){
+                let _this = this;
+                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter)
+                    .then((response) => {
+                        console.log("保存大章结果：",response);
                     })
             }
         }
