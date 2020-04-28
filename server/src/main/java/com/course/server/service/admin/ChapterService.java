@@ -26,6 +26,7 @@ public class ChapterService {
         ChapterExample chapterExample = new ChapterExample();
         //查询所有的chapter
         List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
+        //包含了Total等信息的，pageHelper自带的
         PageInfo<Chapter> pageInfo = new PageInfo<>(chapterList);
 
         pageDto.setTotal(pageInfo.getTotal());
