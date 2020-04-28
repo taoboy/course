@@ -26,6 +26,7 @@ public class ChapterService {
         //查询所有的chapter
         List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
         PageInfo<Chapter> pageInfo = new PageInfo<>(chapterList);
+
         pageDto.setTotal(pageInfo.getTotal());
 
         List<ChapterDto> chapterDtoList = new ArrayList<ChapterDto>();
