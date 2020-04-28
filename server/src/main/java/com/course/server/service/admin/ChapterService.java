@@ -42,7 +42,7 @@ public class ChapterService {
 
     public void save(ChapterDto chapterDto){
         chapterDto.setId(UuidUtil.getShortUuid());
-       Chapter chapter = new Chapter();
+        Chapter chapter = new Chapter();
         BeanUtils.copyProperties(chapterDto,chapter);
        chapterMapper.insert(chapter);
     }

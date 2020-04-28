@@ -175,6 +175,7 @@
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter)
                     .then((response) => {
                         console.log("保存大章结果：",response);
+                        $(".modal").modal("hide");
                     })
             }
         }
