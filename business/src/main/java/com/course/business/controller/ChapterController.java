@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public class ChapterController {
     @Resource
     private ChapterService chapterService;
 
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
         LOG.info("pageInfo:{}",pageDto );
         ResponseDto responseDto = new ResponseDto();
@@ -32,12 +33,20 @@ public class ChapterController {
         return responseDto;
     }
 
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto){
         LOG.info("chapterDto:{}",chapterDto);
         ResponseDto responseDto = new ResponseDto();
         chapterService.save(chapterDto);
         responseDto.setContent(chapterDto);
+        return responseDto;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseDto delete(@PathVariable String id){
+        LOG.info("id:{}",id);
+        ResponseDto responseDto = new ResponseDto();
+        chapterService.delete(id);
         return responseDto;
     }
 }
