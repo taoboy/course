@@ -31,6 +31,7 @@ public class ChapterService {
 
         pageDto.setTotal(pageInfo.getTotal());
 
+        //将chapterList的内容复制到chapterDtoList中
         List<ChapterDto> chapterDtoList = new ArrayList<ChapterDto>();
         for (int i = 0, l =chapterList.size(); i < l; i++) {
             Chapter chapter = chapterList.get(i);
@@ -38,11 +39,13 @@ public class ChapterService {
             BeanUtils.copyProperties(chapter,chapterDto);
             chapterDtoList.add(chapterDto);
         }
-        pageDto.setList(chapterList);
+//        List<ChapterDto> chapterDtoList = CopyUtil.copyList(chapterList, ChapterDto.class);
+        pageDto.setList(chapterDtoList);
     }
 
     public void save(ChapterDto chapterDto){
         chapterDto.setId(UuidUtil.getShortUuid());
+        //将chapterDto转换成chapter
         Chapter chapter = new Chapter();
         BeanUtils.copyProperties(chapterDto,chapter);
        chapterMapper.insert(chapter);
