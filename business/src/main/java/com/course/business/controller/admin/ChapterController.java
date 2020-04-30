@@ -26,7 +26,7 @@ public class ChapterController {
 
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
-        LOG.info("pageInfo:{}",pageDto );
+
         ResponseDto responseDto = new ResponseDto();
         chapterService.list(pageDto);
         responseDto.setContent(pageDto);
@@ -35,7 +35,6 @@ public class ChapterController {
 
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto){
-        LOG.info("chapterDto:{}",chapterDto);
 
         //保存校验
         ValidatorUtil.require(chapterDto.getName(),"名称");
@@ -50,7 +49,7 @@ public class ChapterController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
-        LOG.info("id:{}",id);
+
         ResponseDto responseDto = new ResponseDto();
         chapterService.delete(id);
         return responseDto;
