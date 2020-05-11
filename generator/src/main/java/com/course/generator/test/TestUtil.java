@@ -22,7 +22,7 @@ public class TestUtil {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
         cfg.setDirectoryForTemplateLoading(new File(ftlPath));
         cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_29));
-        Template temp = cfg.getTemplate("test.ftl");
+        Template temp = cfg.getTemplate  ("test.ftl");
 
         //根据模板生成文件
         FileWriter fw = new FileWriter(toPath + "Test.java");
