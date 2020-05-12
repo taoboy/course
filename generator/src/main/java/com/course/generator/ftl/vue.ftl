@@ -96,7 +96,7 @@
     //第一步：引入组件
     import Pagination from "../../components/pagination";
     export default {
-        name: '${domain}',
+        name: '${module}-${domain}',
         components: {Pagination},
         data:function(){
             return {

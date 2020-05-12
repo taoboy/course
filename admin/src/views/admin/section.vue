@@ -138,7 +138,7 @@
     //第一步：引入组件
     import Pagination from "../../components/pagination";
     export default {
-        name: 'section',
+        name: 'business-section',
         components: {Pagination},
         data:function(){
             return {
