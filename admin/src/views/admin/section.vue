@@ -30,6 +30,7 @@
         <th>时长</th>
         <th>收费</th>
         <th>顺序</th>
+        <th>操作</th>
         </tr>
         </thead>
 
@@ -42,7 +43,7 @@
         <td>{{section.chapterId}}</td>
         <td>{{section.video}}</td>
         <td>{{section.time}}</td>
-        <td>{{section.charge}}</td>
+        <td>{{CHARGE | optionKV(section.charge)}}</td>
         <td>{{section.sort}}</td>
 
             <td>
@@ -108,7 +109,9 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">收费</label>
                                         <div class="col-sm-10">
-                                            <input v-model="section.charge" class="form-control">
+                                            <select v-model="section.charge" class="form-control">
+                                                <option v-for="o in CHARGE" v-bind:value="o.key">{{o.value}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -117,6 +120,7 @@
                                             <input v-model="section.sort" class="form-control">
                                         </div>
                                     </div>
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -139,7 +143,8 @@
         data:function(){
             return {
                 section:{},
-                sections:[]
+                sections:[],
+                CHARGE: [{key: "C",value:"收费"},{key:"F",value:"免费"}],
             }
         },
 
