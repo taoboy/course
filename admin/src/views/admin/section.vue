@@ -89,6 +89,13 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">id</label>
+                                    <div class="col-sm-10">
+                                        <input v-model="section.id" class="form-control">
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-10">
@@ -155,6 +162,7 @@
     </div>
 
 </template>
+
 <script>
     //第一步：引入组件
     import Pagination from "../../components/pagination";
@@ -207,6 +215,13 @@
                 let _this = this;
 
                 // 保存校验
+                if (1 != 1
+                      || !Validator.require(_this.section.title, "标题")
+                      || !Validator.length(_this.section.title, "标题", 1, 50)
+                      || !Validator.length(_this.section.video, "视频", 1, 200)
+                ) {
+                    return;
+                }
 
 
                 Loading.show();
