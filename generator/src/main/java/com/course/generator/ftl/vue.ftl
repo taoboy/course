@@ -27,6 +27,7 @@
         <th>${field.nameCn}</th>
           </#if>
         </#list>
+        <th>操作</th>
         </tr>
         </thead>
 
