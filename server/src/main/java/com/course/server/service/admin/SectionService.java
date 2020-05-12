@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class SectionService {
@@ -26,6 +27,7 @@ public class SectionService {
     public void  list(PageDto pageDto){
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         SectionExample sectionExample = new SectionExample();
+        sectionExample.setOrderByClause("sort asc");
         //查询所有的section
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
         //包含了Total等信息的，pageHelper自带的
@@ -49,11 +51,15 @@ public class SectionService {
     }
 
     private void insert(Section section){
+        Date now = new Date();
+        section.setCreatedAt(now);
+        section.setUpdatedAt(now);
         section.setId(UuidUtil.getShortUuid());
         sectionMapper.insert(section);
     }
 
     private void update(Section section){
+        section.setUpdatedAt(new Date());
         sectionMapper.updateByPrimaryKey(section);
     }
 
