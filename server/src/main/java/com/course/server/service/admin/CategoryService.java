@@ -23,6 +23,18 @@ public class CategoryService {
     @Resource
     private CategoryMapper categoryMapper;
 
+    public List<CategoryDto> all(){
+
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.setOrderByClause("sort asc");
+        //查询所有的category
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        //包含了Total等信息的，pageHelper自带的
+        PageInfo<Category> pageInfo = new PageInfo<>(categoryList);
+        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categoryList, CategoryDto.class);
+        return categoryDtoList;
+    }
+
     public void  list(PageDto pageDto){
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         CategoryExample categoryExample = new CategoryExample();
@@ -36,7 +48,6 @@ public class CategoryService {
         List<CategoryDto> categoryDtoList = CopyUtil.copyList(categoryList, CategoryDto.class);
         pageDto.setList(categoryDtoList);
     }
-
     public void save(CategoryDto categoryDto){
         //将categoryDto转换成category
         //Category category = new Category();
