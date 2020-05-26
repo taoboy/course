@@ -78,73 +78,82 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    分类
+                                </label>
 
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">名称</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.name" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">概述</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.summary" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">时长</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.time" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">价格（元）</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.price" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">封面</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.image" class="form-control">
-                                          </div>
-                                      </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">级别</label>
-                                        <div class="col-sm-10">
-                                            <select v-model="course.level" class="form-control">
-                                                <option v-for="o in COURSE_LEVEL" v-bind:value="o.key">{{o.value}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">收费</label>
-                                        <div class="col-sm-10">
-                                            <select v-model="course.charge" class="form-control">
-                                                <option v-for="o in COURSE_CHARGE" v-bind:value="o.key">{{o.value}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">状态</label>
-                                        <div class="col-sm-10">
-                                            <select v-model="course.status" class="form-control">
-                                                <option v-for="o in COURSE_STATUS" v-bind:value="o.key">{{o.value}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">报名数</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.enroll" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">顺序</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="course.sort" class="form-control">
-                                          </div>
-                                      </div>
+                                <div class="col-sm-10">
+                                    <ul id="tree" class="ztree"></ul>
+                                </div>
+                            </div>
+
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">名称</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.name" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">概述</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.summary" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">时长</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.time" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">价格（元）</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.price" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">封面</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.image" class="form-control">
+                                  </div>
+                              </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">级别</label>
+                                <div class="col-sm-10">
+                                    <select v-model="course.level" class="form-control">
+                                        <option v-for="o in COURSE_LEVEL" v-bind:value="o.key">{{o.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">收费</label>
+                                <div class="col-sm-10">
+                                    <select v-model="course.charge" class="form-control">
+                                        <option v-for="o in COURSE_CHARGE" v-bind:value="o.key">{{o.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态</label>
+                                <div class="col-sm-10">
+                                    <select v-model="course.status" class="form-control">
+                                        <option v-for="o in COURSE_STATUS" v-bind:value="o.key">{{o.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">报名数</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.enroll" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label">顺序</label>
+                                  <div class="col-sm-10">
+                                      <input v-model="course.sort" class="form-control">
+                                  </div>
+                              </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -178,6 +187,7 @@
             //this.$parent.activeSidebar("business-course-sidebar")
             let _this = this;
             _this.$refs.pagination.size=5;
+            _this.initTree();
             _this.list(1);
         },
         methods: {
@@ -262,6 +272,37 @@
                 let _this = this;
                 SessionStorage.set("course",course);
                 _this.$router.push("/business/chapter");
+            },
+
+            initTree(){
+                var setting = {
+                    check: {
+                        enable: true
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    }
+                };
+
+                var zNodes =[
+                    { id:1, pId:0, name:"随意勾选 1", open:true},
+                    { id:11, pId:1, name:"随意勾选 1-1", open:true},
+                    { id:111, pId:11, name:"随意勾选 1-1-1"},
+                    { id:112, pId:11, name:"随意勾选 1-1-2"},
+                    { id:12, pId:1, name:"随意勾选 1-2", open:true},
+                    { id:121, pId:12, name:"随意勾选 1-2-1"},
+                    { id:122, pId:12, name:"随意勾选 1-2-2"},
+                    { id:2, pId:0, name:"随意勾选 2", checked:true, open:true},
+                    { id:21, pId:2, name:"随意勾选 2-1"},
+                    { id:22, pId:2, name:"随意勾选 2-2", open:true},
+                    { id:221, pId:22, name:"随意勾选 2-2-1", checked:true},
+                    { id:222, pId:22, name:"随意勾选 2-2-2"},
+                    { id:23, pId:2, name:"随意勾选 2-3"}
+                ];
+
+                $.fn.zTree.init($("#tree"), setting, zNodes);
             }
         }
     }

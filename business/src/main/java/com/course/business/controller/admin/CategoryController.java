@@ -46,9 +46,9 @@ public class CategoryController {
     @PostMapping("/save")
     public ResponseDto save(@RequestBody CategoryDto categoryDto){
         //保存校验
-                ValidatorUtil.require(categoryDto.getParent(), "父id");
-                ValidatorUtil.require(categoryDto.getName(), "名称");
-                ValidatorUtil.length(categoryDto.getName(), "名称", 1, 50);
+        ValidatorUtil.require(categoryDto.getParent(), "父id");
+        ValidatorUtil.require(categoryDto.getName(), "名称");
+        ValidatorUtil.length(categoryDto.getName(), "名称", 1, 50);
 
         ResponseDto responseDto = new ResponseDto();
         categoryService.save(categoryDto);
