@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -32,6 +33,9 @@ public class CourseService {
     @Resource
     private MyCourseMapper myCourseMapper;
 
+    @Resource
+    private CourseCategoryService courseCategoryService;
+
     public void  list(PageDto pageDto){
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         CourseExample courseExample = new CourseExample();
@@ -46,6 +50,7 @@ public class CourseService {
         pageDto.setList(courseDtoList);
     }
 
+    @Transactional
     public void save(CourseDto courseDto){
         //将courseDto转换成course
         //Course course = new Course();
@@ -56,6 +61,9 @@ public class CourseService {
         }else {
             this.update(course);
         }
+        //批量保存课程分类
+        courseCategoryService.saveBatch(course.getId(),courseDto.getCategorys());
+
     }
 
     private void insert(Course course){
