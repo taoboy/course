@@ -1,13 +1,13 @@
 package com.course.business.controller.admin;
 
 
-import com.course.server.dto.CourseCategoryDto;
-import com.course.server.dto.CourseDto;
-import com.course.server.dto.PageDto;
-import com.course.server.dto.ResponseDto;
+import com.course.server.domain.CourseContent;
+import com.course.server.dto.*;
 import com.course.server.exception.ValidatorException;
+import com.course.server.mapper.CourseContentMapper;
 import com.course.server.service.admin.CourseCategoryService;
 import com.course.server.service.admin.CourseService;
+import com.course.server.util.CopyUtil;
 import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +30,9 @@ public class CourseController {
 
     @Resource
     private CourseCategoryService courseCategoryService;
+
+
+
 
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
@@ -72,4 +75,21 @@ public class CourseController {
         responseDto.setContent(dtoList);
         return responseDto;
     }
+
+    @GetMapping("/find-content/{courseId}")
+    public ResponseDto findContent(@PathVariable(value = "courseId") String courseId){
+        ResponseDto responseDto = new ResponseDto();
+        CourseContentDto contentDto = courseService.findContent(courseId);
+        responseDto.setContent(contentDto);
+        return responseDto;
+    }
+
+    @PostMapping("/save-content")
+    public ResponseDto saveContent(@RequestBody CourseContentDto contentDto){
+        ResponseDto responseDto = new ResponseDto();
+        courseService.saveContent(contentDto);
+        return responseDto;
+    }
+
+
 }
