@@ -91,5 +91,13 @@ public class CourseController {
         return responseDto;
     }
 
+    @PostMapping("/sort")
+    public ResponseDto sort(@RequestBody SortDto sortDto){
+        LOG.info("更新排序");
+        ResponseDto responseDto = new ResponseDto();
+        courseService.sort(sortDto);
+        return responseDto;
+    }
+
 
 }
