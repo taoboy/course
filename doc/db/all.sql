@@ -65,6 +65,7 @@ create table course (
 insert into course (id, name, summary, time, price, image, level, charge, status, enroll, sort, created_at, updated_at)
 values ('00000001', '测试课程01', '这是一门测试课程', 7200, 19.9, '', 1, 'C', 'P', 100, 0, now(), now());
 
+alter table `course` add column (`teacher_id` char(8) comment '讲师|teacher.id')
 
 -- 分类
 drop table if exists `category`;
@@ -155,3 +156,4 @@ create table `teacher` (
   `intro` varchar(500) comment '简介',
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 comment='讲师';
+

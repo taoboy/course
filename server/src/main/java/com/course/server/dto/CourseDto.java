@@ -63,6 +63,16 @@ public class CourseDto {
      */
     private Integer sort;
 
+    private String teacherId;
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
     /**
      * 创建时间
      */
@@ -89,6 +99,7 @@ public class CourseDto {
         sb.append(", status='").append(status).append('\'');
         sb.append(", enroll=").append(enroll);
         sb.append(", sort=").append(sort);
+        sb.append(", teacherId='").append(teacherId).append('\'');
         sb.append(", createdAt=").append(createdAt);
         sb.append(", updatedAt=").append(updatedAt);
         sb.append(", categorys=").append(categorys);

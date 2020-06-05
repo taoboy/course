@@ -2,6 +2,9 @@ package com.course.server.service.admin;
 
 import com.course.server.domain.Teacher;
 import com.course.server.domain.TeacherExample;
+import com.course.server.domain.Teacher;
+import com.course.server.domain.TeacherExample;
+import com.course.server.dto.TeacherDto;
 import com.course.server.dto.TeacherDto;
 import com.course.server.dto.PageDto;
 import com.course.server.mapper.TeacherMapper;
@@ -60,5 +63,13 @@ public class TeacherService {
 
     public void delete(String id) {
         teacherMapper.deleteByPrimaryKey(id);
+    }
+
+    public List<TeacherDto> all(){
+
+        TeacherExample teacherExample = new TeacherExample();
+        //查询所有的teacher
+        List<Teacher> teacherList = teacherMapper.selectByExample(teacherExample);
+        return CopyUtil.copyList(teacherList,TeacherDto.class);
     }
 }
