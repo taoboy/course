@@ -19,49 +19,6 @@
         -->
         <pagination ref="pagination" v-bind:list="list"></pagination>
 
-        <table id="simple-table" class="table  table-bordered table-hover">
-        <thead>
-        <tr>
-        <th>id</th>
-        <th>姓名</th>
-        <th>昵称</th>
-        <th>头像</th>
-        <th>职位</th>
-        <th>座右铭</th>
-        <th>简介</th>
-        <th>操作</th>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        <tr v-for="teacher in teachers">
-                <td>{{teacher.id}}</td>
-                <td>{{teacher.name}}</td>
-                <td>{{teacher.nickname}}</td>
-                <td>{{teacher.image}}</td>
-                <td>{{teacher.position}}</td>
-                <td>{{teacher.motto}}</td>
-                <td>{{teacher.intro}}</td>
-
-            <td>
-                <div class="hidden-sm hidden-xs btn-group">
-                    <button v-on:click="edit(teacher)" class="btn btn-xs btn-info">
-                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                    </button>
-
-                    <button v-on:click="del(teacher.id)" class="btn btn-xs btn-danger">
-                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
-
-
-
-        </tbody>
-    </table>
-
         <div class="row">
             <div v-for="teacher in teachers" class="col-md-3">
                 <div>
@@ -135,7 +92,7 @@
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">头像</label>
                                           <div class="col-sm-10">
-                                              <input v-model="teacher.image" class="form-control">
+                                              <input type="file" id="file-upload-input" v-on:change="uploadImage()" >
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -263,6 +220,16 @@
                                 Toast.success("删除成功")
                             }
                         })
+                });
+            },
+            uploadImage(){
+                let _this = this;
+                let formData = new window.FormData();
+                formData.append('file',document.querySelector('#file-upload-input').files[0])
+                Loading.show();
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
+                    Loading.hide();
+                    let resp = response.data;
                 });
             }
         }
