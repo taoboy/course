@@ -91,9 +91,14 @@
                                       </div>
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">头像</label>
-                                          <div class="col-sm-10">
+                                          <div class="col-sm-4">
                                               <input type="file" id="file-upload-input" v-on:change="uploadImage()" >
-                                              <img v-bind:src="teacher.image" class="img-responsive"/>
+                                              <div v-show="teacher.image" class="row">
+                                                  <div class="col-md-4">
+                                                      <img v-bind:src="teacher.image" class="img-responsive"/>
+                                                  </div>
+                                              </div>
+
                                           </div>
                                       </div>
                                       <div class="form-group">
