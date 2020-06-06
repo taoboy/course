@@ -29,7 +29,7 @@ public class UploadController {
         //保存文件到本地
         String fileName = file.getOriginalFilename();
         String key = UuidUtil.getShortUuid();
-        String fullPath = "E:/file/imooc/teacher/" + key + "-" + fileName;
+        String fullPath = "E:/file/imooc/course/teacher/" + key + "-" + fileName;
         //生成目标位置
         File dest = new File(fullPath);
         //把file写到目标路径
