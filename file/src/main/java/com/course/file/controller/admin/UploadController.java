@@ -2,6 +2,7 @@ package com.course.file.controller.admin;
 
 import com.course.server.dto.ResponseDto;
 import com.course.server.util.UuidUtil;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,10 @@ public class UploadController {
         //生成目标位置
         File dest = new File(fullPath);
         //把file写到目标路径
+        if (!dest.getParentFile().exists()){
+            dest.getParentFile().mkdirs();
+        }
+//        FileUtils.copyInputStreamToFile(file.getInputStream(),dest);
         file.transferTo(dest);
         LOG.info(dest.getAbsolutePath());
 

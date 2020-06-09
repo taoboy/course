@@ -42,5 +42,12 @@
             <groupId>com.course</groupId>
             <artifactId>server</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
