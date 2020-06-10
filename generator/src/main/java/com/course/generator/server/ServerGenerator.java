@@ -11,8 +11,7 @@ import java.io.File;
 import java.util.*;
 
 public class ServerGenerator {
-
-    static String MODULE = "business";
+    static String MODULE = "file";
     static String toDtoPath = "server\\src\\main\\java\\com\\course\\server\\dto\\";
     //要生成的文件的路径
     static String toServicePath = "server\\src\\main\\java\\com\\course\\server\\service\\admin\\";

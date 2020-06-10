@@ -37,8 +37,6 @@
             let _this = this;
             let formData = new window.FormData();
             let file = _this.$refs.file.files[0];
-
-
             // 判断文件格式
             let suffixs = _this.suffixs;
             let fileName = file.name;
