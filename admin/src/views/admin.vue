@@ -394,7 +394,7 @@
                     </li>
 
                     <li class="active open">
-                        <a href="#" class="dropdown-toggle">
+                        <a class="dropdown-toggle">
                             <i class="menu-icon fa fa-list"></i>
                             <span class="menu-text"> 业务管理 </span>
 
@@ -404,25 +404,6 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <!--<li class="active" id="business-chapter-sidebar">-->
-                                <!--<router-link to="/business/chapter">-->
-                                    <!--<i class="menu-icon fa fa-caret-right"></i>-->
-                                    <!--大章管理-->
-                                <!--</router-link>-->
-
-                                <!--<b class="arrow"></b>-->
-                            <!--</li>-->
-
-                            <!--<li class="active" id="business-section-sidebar">-->
-                                <!--<router-link to="/business/section">-->
-                                    <!--<i class="menu-icon fa fa-caret-right"></i>-->
-                                    <!--小节管理-->
-                                <!--</router-link>-->
-
-                                <!--<b class="arrow"></b>-->
-                            <!--</li>-->
-
-
                             <li class="active" id="business-category-sidebar">
                                 <router-link to="/business/category">
                                     <i class="menu-icon fa fa-caret-right"></i>
@@ -451,8 +432,8 @@
                         </ul>
                     </li>
 
-                    <li  class="active open">
-                        <a href="#" class="dropdown-toggle">
+                    <li class="active open">
+                        <a  class="dropdown-toggle">
                             <i class="menu-icon fa fa-list"></i>
                             <span class="menu-text"> 文件管理 </span>
 

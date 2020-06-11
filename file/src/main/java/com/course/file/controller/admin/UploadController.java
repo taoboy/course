@@ -1,6 +1,8 @@
 package com.course.file.controller.admin;
 
+import com.course.server.dto.FileDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.service.admin.FileService;
 import com.course.server.util.UuidUtil;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 
@@ -21,6 +24,9 @@ public class UploadController {
     private static final Logger LOG = LoggerFactory.getLogger(UploadController.class);
 
     private static final String BUSINESS_NAME = "文件上传";
+
+    @Resource
+    private FileService fileService;
 
     @Value("${file.domain}")
     private String FILE_DOMAIN;
@@ -35,9 +41,12 @@ public class UploadController {
         LOG.info(String.valueOf(file.getSize()));
 
         //保存文件到本地
-        String fileName = file.getOriginalFilename();
         String key = UuidUtil.getShortUuid();
-        String fullPath = FILE_PATH +"teacher/" + key + "-" + fileName;
+        String fileName = file.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        String path = "teacher/" + key + "." + suffix;
+
+        String fullPath = FILE_PATH + path;
         //生成目标位置
         File dest = new File(fullPath);
         //把file写到目标路径
@@ -48,8 +57,17 @@ public class UploadController {
         file.transferTo(dest);
         LOG.info(dest.getAbsolutePath());
 
+        LOG.info("保存文件记录开始");
+        FileDto fileDto = new FileDto();
+        fileDto.setPath(path);
+        fileDto.setName(fileName);
+        fileDto.setSuffix(suffix);
+        fileDto.setSize(Math.toIntExact(file.getSize()));
+        fileDto.setUse("");
+        fileService.save(fileDto);
+
         ResponseDto responseDto = new ResponseDto();
-        responseDto.setContent(FILE_DOMAIN + "f/teacher/" + key + "-" + fileName);
+        responseDto.setContent(FILE_DOMAIN +  path);
         return responseDto;
     }
 }
