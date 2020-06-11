@@ -23,6 +23,9 @@
         suffixs:{
           default: []
       },
+      use:{
+          default:""
+      },
       afterUpload: {
         type: Function,
         default: null
@@ -41,7 +44,9 @@
             let suffixs = _this.suffixs;
             let fileName = file.name;
             let suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase();
+            let use = _this.use
             let validateSuffix = false;
+
             for (let i = 0; i < suffixs.length; i++) {
                 if (suffixs[i].toLowerCase() === suffix) {
                     validateSuffix = true;
@@ -57,6 +62,7 @@
             // key："file"必须和后端controller参数名一致
 
             formData.append('file',file)
+            formData.append('use',use)
             Loading.show();
             _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
                 Loading.hide();

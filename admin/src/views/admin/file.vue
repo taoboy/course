@@ -52,7 +52,7 @@
             return {
                 file:{},
                 files:[],
-                        FILE_USE: FILE_USE,
+                FILE_USE: FILE_USE,
             }
         },
 

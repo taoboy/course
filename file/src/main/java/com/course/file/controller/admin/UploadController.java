@@ -2,6 +2,7 @@ package com.course.file.controller.admin;
 
 import com.course.server.dto.FileDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.enums.FileUseEnum;
 import com.course.server.service.admin.FileService;
 import com.course.server.util.UuidUtil;
 import org.apache.commons.io.FileUtils;
@@ -35,25 +36,27 @@ public class UploadController {
     private String FILE_PATH;
 
     @RequestMapping("/upload")
-    public ResponseDto upload(@RequestParam MultipartFile file) throws IOException {
-        LOG.info("上传文件开始：{}",file);
+    public ResponseDto upload(@RequestParam MultipartFile file,String use) throws IOException {
+        LOG.info("上传文件开始：{}");
         LOG.info(file.getOriginalFilename());
         LOG.info(String.valueOf(file.getSize()));
 
         //保存文件到本地
+        FileUseEnum useEnum = FileUseEnum.getByCode(use);
         String key = UuidUtil.getShortUuid();
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-        String path = "teacher/" + key + "." + suffix;
 
-        String fullPath = FILE_PATH + path;
-        //生成目标位置
-        File dest = new File(fullPath);
+        String dir = useEnum.name().toLowerCase();
+        File fullDir = new File(FILE_PATH + dir);
         //把file写到目标路径
-        if (!dest.getParentFile().exists()){
-            dest.getParentFile().mkdirs();
+        if (!fullDir.exists()){
+            fullDir.mkdir();
         }
 //        FileUtils.copyInputStreamToFile(file.getInputStream(),dest);
+        String path = dir + File.separator + key +"." + suffix;
+        String fullPath = FILE_PATH + path;
+        File dest = new File(fullPath);
         file.transferTo(dest);
         LOG.info(dest.getAbsolutePath());
 
@@ -63,7 +66,7 @@ public class UploadController {
         fileDto.setName(fileName);
         fileDto.setSuffix(suffix);
         fileDto.setSize(Math.toIntExact(file.getSize()));
-        fileDto.setUse("");
+        fileDto.setUse(use);
         fileService.save(fileDto);
 
         ResponseDto responseDto = new ResponseDto();
