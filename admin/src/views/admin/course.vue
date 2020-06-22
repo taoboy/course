@@ -107,18 +107,17 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">封面</label>
                                 <div class="col-sm-10">
-                                    <file v-bind:text="'上传头像'"
-                                          v-bind:inputId="'image-upload'"
+                                    <file v-bind:text="'上传封面'"
+                                          v-bind:inputId="'course-upload'"
                                           v-bind:after-upload="afterUpload"
                                           v-bind:suffixs="['jpg', 'jpeg', 'png']"
-                                          v-bind:use="FILE_USE.TEACHER.key"
+                                          v-bind:use="FILE_USE.COURSE.key"
                                     ></file>
-                                    <div v-show="teacher.image" class="row">
-                                        <div class="col-md-4">
-                                            <img v-bind:src="teacher.image" class="img-responsive"/>
+                                    <div v-show="course.image" class="row">
+                                        <div class="col-md-6">
+                                            <img v-bind:src="course.image" class="img-responsive"/>
                                         </div>
                                     </div>
-                                    <input v-model="course.image" class="form-control">
                                 </div>
                             </div>
 
@@ -285,9 +284,10 @@
 <script>
     //第一步：引入组件
     import Pagination from "../../components/pagination";
+    import File from "../../components/file";
     export default {
         name: 'business-course',
-        components: {Pagination},
+        components: {Pagination,File},
         data:function(){
             return {
                 course:{},
@@ -304,6 +304,7 @@
                     newSort:0
                 },
                 teachers:[],
+                FILE_USE:FILE_USE
             }
         },
 
@@ -562,6 +563,12 @@
                     _this.teachers = resp.content;
                 })
             },
+
+            afterUpload(resp){
+                let _this = this;
+                let image = resp.content.path;
+                _this.course.image = image;
+            }
 
 
         }

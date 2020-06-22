@@ -42,6 +42,7 @@ public class UploadController {
         LOG.info(String.valueOf(file.getSize()));
 
         //保存文件到本地
+        //获取到枚举类的名字
         FileUseEnum useEnum = FileUseEnum.getByCode(use);
         String key = UuidUtil.getShortUuid();
         String fileName = file.getOriginalFilename();

@@ -97,8 +97,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">视频</label>
-                                        <div class="col-sm-10">
-                                            <input v-model="section.video" class="form-control">
+                                            <div class="col-sm-10">
+                                                <file v-bind:text="'上传视频'"
+                                                      v-bind:inputId="'video-upload'"
+                                                      v-bind:after-upload="afterUpload"
+                                                      v-bind:suffixs="['mp4']"
+                                                      v-bind:use="FILE_USE.COURSE.key"
+                                                ></file>
+                                                <div v-show="section.video" class="row">
+                                                    <div class="col-md-9">
+                                                        <video v-bind:src="section.video" controls="controls"></video>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -138,14 +148,17 @@
 <script>
     //第一步：引入组件
     import Pagination from "../../components/pagination";
+    import File from "../../components/file";
+
     export default {
         name: 'business-section',
-        components: {Pagination},
+        components: {Pagination,File},
         data:function(){
             return {
                 section:{},
                 sections:[],
                 SECTION_CHARGE: SECTION_CHARGE,
+                FILE_USE:FILE_USE,
                 course: {},
                 chapter:{}
             }
@@ -239,7 +252,20 @@
                             }
                         })
                 });
+            },
+            afterUpload(resp){
+                let _this = this;
+                let video = resp.content.path;
+                _this.section.video = video;
             }
         }
     }
 </script>
+
+<style scoped>
+    video{
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
+</style>
