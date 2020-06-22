@@ -65,12 +65,13 @@ public class UploadController {
         fileDto.setPath(path);
         fileDto.setName(fileName);
         fileDto.setSuffix(suffix);
-        fileDto.setSize(Math.toIntExact(file.getSize()));
+        fileDto.setSize(Math.toIntExact(file. getSize()));
         fileDto.setUse(use);
         fileService.save(fileDto);
 
         ResponseDto responseDto = new ResponseDto();
-        responseDto.setContent(FILE_DOMAIN +  path);
+        fileDto.setPath(FILE_DOMAIN + path);
+        responseDto.setContent(fileDto);
         return responseDto;
     }
 }
