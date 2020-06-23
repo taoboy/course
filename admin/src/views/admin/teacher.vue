@@ -93,7 +93,7 @@
                                   <label class="col-sm-2 control-label">头像</label>
                                   <div class="col-sm-10">
                                       <file v-bind:text="'上传头像'"
-                                            v-bind:inputId="'image-upload'"
+                                            v-bind:input-id="'image-upload'"
                                             v-bind:after-upload="afterUpload"
                                             v-bind:suffixs="['jpg', 'jpeg', 'png']"
                                             v-bind:use="FILE_USE.TEACHER.key"

@@ -30,6 +30,11 @@
         type: Function,
         default: null
       },
+
+      afterUploadContentFile:{
+          type: Function,
+          default: null
+      }
     },
     data: function () {
       return {
