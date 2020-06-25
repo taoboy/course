@@ -67,7 +67,7 @@
             }
 
             //文件分片
-            let shardSize = 20 * 1024 * 1024; //以20MB为一个分片
+            let shardSize = 40 * 1024 * 1024; //以20MB为一个分片
             let shardIndex = 1; //分片索引
             let start = shardIndex * shardSize; //当前分片起始位置 0 20 40
             // let end = start + shardSize; //分片结束的位置 1， 20~40 35
