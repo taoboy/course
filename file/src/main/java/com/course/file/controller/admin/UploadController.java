@@ -46,14 +46,13 @@ public class UploadController {
                               Integer size,
                               Integer shardIndex,
                               Integer shardSize,
-                              Integer shardTotal) throws IOException {
+                              Integer shardTotal,
+                              String key) throws IOException {
         LOG.info("上传文件开始：{}");
 
         //保存文件到本地
         //获取到枚举类的名字
         FileUseEnum useEnum = FileUseEnum.getByCode(use);
-        String key = UuidUtil.getShortUuid();
-
         String dir = useEnum.name().toLowerCase();
         File fullDir = new File(FILE_PATH + dir);
         //把file写到目标路径

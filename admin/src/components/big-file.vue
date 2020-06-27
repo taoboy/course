@@ -46,6 +46,24 @@
             let formData = new window.FormData();
             let file = _this.$refs.file.files[0];
 
+            console.log(file);
+            /*
+            name: "VID_20200602_172059.mp4"
+            lastModified: 1593098448414
+            lastModifiedDate: Thu Jun 25 2020 23:20:48 GMT+0800 (中国标准时间) {}
+            webkitRelativePath: ""
+            size: 71831281
+            type: "video/mp4"
+             */
+            let key = hex_md5(file);
+            let key10 = parseInt(key,16);
+            let key62 = Tool._10to62(key10);
+            console.log(key,key10,key62);
+            /*
+            d41d8cd98f00b204e9800998ecf8427e
+            2.8194976848941264e+38
+            6sfSqfOwzmik4A4icMYuUe
+             */
 
             // 判断文件格式
             let suffixs = _this.suffixs;
@@ -68,8 +86,8 @@
 
             //文件分片
             let shardSize = 40 * 1024 * 1024; //以20MB为一个分片
-            let shardIndex = 1; //分片索引
-            let start = shardIndex * shardSize; //当前分片起始位置 0 20 40
+            let shardIndex = 2; //分片索引
+            let start = (shardIndex-1) * shardSize; //当前分片起始位置 0 20 40
             // let end = start + shardSize; //分片结束的位置 1， 20~40 35
             let end = Math.min(file.size,start + shardSize); //当前分片结束位置
             let fileShard = file.slice(start,end); //从文件中截取当前的分片数据
@@ -85,6 +103,7 @@
             formData.append('name',file.name)
             formData.append('suffix',suffix);
             formData.append('size',size);
+            formData.append('key',key62);
 
             Loading.show();
             _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
