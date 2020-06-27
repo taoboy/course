@@ -39,17 +39,20 @@ public class UploadController {
     private String FILE_PATH;
 
     @RequestMapping("/upload")
-    public ResponseDto upload(@RequestParam MultipartFile file,String use) throws IOException {
+    public ResponseDto upload(@RequestParam MultipartFile shard,
+                              String use,
+                              String name,
+                              String suffix,
+                              Integer size,
+                              Integer shardIndex,
+                              Integer shardSize,
+                              Integer shardTotal) throws IOException {
         LOG.info("上传文件开始：{}");
-        LOG.info(file.getOriginalFilename());
-        LOG.info(String.valueOf(file.getSize()));
 
         //保存文件到本地
         //获取到枚举类的名字
         FileUseEnum useEnum = FileUseEnum.getByCode(use);
         String key = UuidUtil.getShortUuid();
-        String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 
         String dir = useEnum.name().toLowerCase();
         File fullDir = new File(FILE_PATH + dir);
@@ -61,16 +64,20 @@ public class UploadController {
         String path = dir + File.separator + key +"." + suffix;
         String fullPath = FILE_PATH + path;
         File dest = new File(fullPath);
-        file.transferTo(dest);
+        shard.transferTo(dest);
         LOG.info(dest.getAbsolutePath());
 
         LOG.info("保存文件记录开始");
         FileDto fileDto = new FileDto();
         fileDto.setPath(path);
-        fileDto.setName(fileName);
+        fileDto.setName(name);
+        fileDto.setSize(size);
         fileDto.setSuffix(suffix);
-        fileDto.setSize(Math.toIntExact(file. getSize()));
         fileDto.setUse(use);
+        fileDto.setShardIndex(shardIndex);
+        fileDto.setShardSize(shardSize);
+        fileDto.setShardTotal(shardTotal);
+        fileDto.setKey(key);
         fileService.save(fileDto);
 
         ResponseDto responseDto = new ResponseDto();
@@ -89,13 +96,13 @@ public class UploadController {
 
         try{
             //读取第一个分片
-            fileInputStream = new FileInputStream(new File(FILE_PATH + "/course/196DzDfO.blob"));
+            fileInputStream = new FileInputStream(new File(FILE_PATH + "/course/BY9Mc7Jo.mp4"));
             while ((len = fileInputStream.read(byt)) != -1){
                 outputStream.write(byt,0,len);
             }
 
             //读取第二个分片
-            fileInputStream = new FileInputStream(new File(FILE_PATH + "/course/4OYk1kQ3.blob"));
+            fileInputStream = new FileInputStream(new File(FILE_PATH + "/course/Pdays58k.mp4"));
             while ((len = fileInputStream.read(byt)) != -1){
                 outputStream.write(byt,0,len);
             }
