@@ -86,7 +86,7 @@
 
             //文件分片
             let shardSize = 40 * 1024 * 1024; //以20MB为一个分片
-            let shardIndex = 2; //分片索引
+            let shardIndex = 1; //分片索引
             let start = (shardIndex-1) * shardSize; //当前分片起始位置 0 20 40
             // let end = start + shardSize; //分片结束的位置 1， 20~40 35
             let end = Math.min(file.size,start + shardSize); //当前分片结束位置
@@ -95,24 +95,45 @@
             let shardTotal = Math.ceil(size / shardSize);//总片数
 
             // key："file"必须和后端controller参数名一致
-            formData.append('shard',fileShard);
-            formData.append('shardIndex',shardIndex);
-            formData.append('shardSize',shardSize);
-            formData.append('shardTotal',shardTotal);
-            formData.append('use',use);
-            formData.append('name',file.name)
-            formData.append('suffix',suffix);
-            formData.append('size',size);
-            formData.append('key',key62);
+            // formData.append('shard',fileShard);
+            // formData.append('shardIndex',shardIndex);
+            // formData.append('shardSize',shardSize);
+            // formData.append('shardTotal',shardTotal);
+            // formData.append('use',use);
+            // formData.append('name',file.name)
+            // formData.append('suffix',suffix);
+            // formData.append('size',size);
+            // formData.append('key',key62);
 
-            Loading.show();
-            _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',formData).then((response)=>{
-                Loading.hide();
-                let resp = response.data;
-                console.log("上传文件成功：" + resp);
-                _this.afterUpload(resp);
-                $("#" + _this.inputId + "-input").val("");
-            });
+
+
+            //将图片转为base64进行传输
+            let fileReader = new FileReader();
+            fileReader.onload = function(e) {
+                let base64 = e.target.result;
+                console.log("base64:",base64)
+
+                let param = {
+                    'shard': base64,
+                    'shardIndex': shardIndex,
+                    'shardSize': shardSize,
+                    'shardTotal': shardTotal,
+                    'use': _this.use,
+                    'name': file.name,
+                    'suffix': suffix,
+                    'size': file.size,
+                    'key': key62
+                };
+                Loading.show();
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload',param ).then((response)=>{
+                    Loading.hide();
+                    let resp = response.data;
+                    console.log("上传文件成功：" + resp);
+                    _this.afterUpload(resp);
+                    $("#" + _this.inputId + "-input").val("");
+                });
+            };
+            fileReader.readAsDataURL(fileShard)
         },
 
         selectFile () {

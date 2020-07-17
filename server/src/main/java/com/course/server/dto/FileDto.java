@@ -47,6 +47,8 @@ public class FileDto {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updatedAt;
 
+
+
     private Integer shardIndex;
 
     private Integer shardSize;
@@ -55,24 +57,10 @@ public class FileDto {
 
     private String key;
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("FileDto{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", path='").append(path).append('\'');
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", suffix='").append(suffix).append('\'');
-        sb.append(", size=").append(size);
-        sb.append(", use='").append(use).append('\'');
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append(", shardIndex=").append(shardIndex);
-        sb.append(", shardSize=").append(shardSize);
-        sb.append(", shardTotal=").append(shardTotal);
-        sb.append(", key='").append(key).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
+    /**
+     * base64
+     */
+    private String shard;
 
     public Integer getShardIndex() {
         return shardIndex;
@@ -170,5 +158,31 @@ public class FileDto {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("FileDto{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", path='").append(path).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", suffix='").append(suffix).append('\'');
+        sb.append(", size=").append(size);
+        sb.append(", use='").append(use).append('\'');
+        sb.append(", createdAt=").append(createdAt);
+        sb.append(", updatedAt=").append(updatedAt);
+        sb.append(", shardIndex=").append(shardIndex);
+        sb.append(", shardSize=").append(shardSize);
+        sb.append(", shardTotal=").append(shardTotal);
+        sb.append(", key='").append(key).append('\'');
+        sb.append(", shard='").append(shard).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 
+    public String getShard() {
+        return shard;
+    }
+
+    public void setShard(String shard) {
+        this.shard = shard;
+    }
 }
