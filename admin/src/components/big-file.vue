@@ -131,8 +131,9 @@
                         _this.upload(param);
                     } else {
                         _this.afterUpload(resp);
+                        $("#" + _this.inputId + "-input").val("");
                     }
-                    $("#" + _this.inputId + "-input").val("");
+
                 });
             };
             fileReader.readAsDataURL(fileShard)
