@@ -120,6 +120,11 @@
                             param.shardIndex = 1;
                             console.log("没有找到文件记录，从分片1开始上传");
                             _this.upload(param);
+                          } else if (obj.shardIndex === obj.shardTotal) {
+                            // 已上传分片 = 分片总数，说明已全部上传完，不需要再上传
+                            Toast.success("文件极速秒传成功！");
+                            _this.afterUpload(resp);
+                            $("#" + _this.inputId + "-input").val("");
                           } else {
                             param.shardIndex = obj.shardIndex + 1;
                             console.log("找到文件记录，从分片" + param.shardIndex + "开始上传");
@@ -137,25 +142,29 @@
              let shardIndex = param.shardIndex;
              let shardTotal = param.shardTotal;
              let shardSize = param.shardSize
-            let fileShard = _this.getFileShard(shardIndex,shardSize );
-            //将图片转为base64进行传输
-            let fileReader = new FileReader();
-            fileReader.onload = function (e) {
+             let fileShard = _this.getFileShard(shardIndex,shardSize );
+             //将图片转为base64进行传输
+             let fileReader = new FileReader();
+             Progress.show(parseInt((shardIndex - 1) * 100 / shardTotal));
+
+             fileReader.onload = function (e) {
                 let base64 = e.target.result;
 
                 param.shard = base64
 
-                Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/file/admin/upload', param).then((response) => {
                     Loading.hide();
 
-                   let resp = response.data;
+                    let resp = response.data;
                     console.log("上传文件成功：" + resp);
+                    Progress.show(parseInt(shardIndex * 100 / shardTotal));
+
                     if (shardIndex < shardTotal) {
                         //上传下一个分片
                         param.shardIndex = param.shardIndex+1;
                         _this.upload(param);
                     } else {
+                        Progress.hide();
                         _this.afterUpload(resp);
                         $("#" + _this.inputId + "-input").val("");
                     }
