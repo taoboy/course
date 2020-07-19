@@ -55,7 +55,7 @@
             size: 71831281
             type: "video/mp4"
              */
-            let key = hex_md5(file);
+            let key = hex_md5(file.name + file.size + file.type);
             let key10 = parseInt(key,16);
             let key62 = Tool._10to62(key10);
             console.log(key,key10,key62);
