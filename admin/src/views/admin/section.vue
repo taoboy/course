@@ -125,6 +125,19 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">视频</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="section.video" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">VOD</label>
+                                        <div class="col-sm-10">
+                                            <input v-model="section.vod" class="form-control" disabled>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">顺序</label>
                                         <div class="col-sm-10">
