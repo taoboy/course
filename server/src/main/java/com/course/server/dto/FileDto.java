@@ -57,6 +57,37 @@ public class FileDto {
 
     private String key;
 
+    private String vod;
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("FileDto{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", path='").append(path).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", suffix='").append(suffix).append('\'');
+        sb.append(", size=").append(size);
+        sb.append(", use='").append(use).append('\'');
+        sb.append(", createdAt=").append(createdAt);
+        sb.append(", updatedAt=").append(updatedAt);
+        sb.append(", shardIndex=").append(shardIndex);
+        sb.append(", shardSize=").append(shardSize);
+        sb.append(", shardTotal=").append(shardTotal);
+        sb.append(", key='").append(key).append('\'');
+        sb.append(", vod='").append(vod).append('\'');
+        sb.append(", shard='").append(shard).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public String getVod() {
+        return vod;
+    }
+
+    public void setVod(String vod) {
+        this.vod = vod;
+    }
+
     /**
      * base64
      */
@@ -156,26 +187,6 @@ public class FileDto {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("FileDto{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", path='").append(path).append('\'');
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", suffix='").append(suffix).append('\'');
-        sb.append(", size=").append(size);
-        sb.append(", use='").append(use).append('\'');
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append(", shardIndex=").append(shardIndex);
-        sb.append(", shardSize=").append(shardSize);
-        sb.append(", shardTotal=").append(shardTotal);
-        sb.append(", key='").append(key).append('\'');
-        sb.append(", shard='").append(shard).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 
     public String getShard() {
