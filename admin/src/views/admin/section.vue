@@ -98,12 +98,12 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">视频</label>
                                             <div class="col-sm-10">
-                                                <big-file v-bind:text="'上传大视频'"
+                                                <vod v-bind:text="'上传VOD'"
                                                       v-bind:id="'video-upload'"
                                                       v-bind:after-upload="afterUpload"
                                                       v-bind:suffixs="['mp4']"
                                                       v-bind:use="FILE_USE.COURSE.key"
-                                                ></big-file>
+                                                ></vod>
                                                 <div v-show="section.video" class="row">
                                                     <div class="col-md-9">
                                                         <video v-bind:src="section.video" id="video" controls="controls"></video>
@@ -163,10 +163,11 @@
     import Pagination from "../../components/pagination";
     import File from "../../components/file";
     import BigFile from "../../components/big-file";
+    import Vod from "../../components/vod";
 
     export default {
         name: 'business-section',
-        components: {Pagination,File,BigFile},
+        components: {Pagination,File,BigFile,Vod},
         data:function(){
             return {
                 section:{},
