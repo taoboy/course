@@ -122,5 +122,26 @@ public class VodController {
         return responseDto;
     }
 
+    @RequestMapping(value = "/get-auth/{vod}", method = RequestMethod.GET)
+    public ResponseDto getAuth(@PathVariable String vod) throws ClientException {
+        LOG.info("获取播放授权开始: ");
+        ResponseDto responseDto = new ResponseDto();
+        DefaultAcsClient client = VodUtil.initVodClient(accessKeyId, accessKeySecret);
+        GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
+        try {
+            response = VodUtil.getVideoPlayAuth(client, vod);
+            LOG.info("授权码 = {}", response.getPlayAuth());
+            responseDto.setContent(response.getPlayAuth());
+            //VideoMeta信息
+            LOG.info("VideoMeta = {}", JSON.toJSONString(response.getVideoMeta()));
+        } catch (Exception e) {
+            System.out.print("ErrorMessage = " + e.getLocalizedMessage());
+        }
+        LOG.info("获取播放授权结束");
+        return responseDto;
+    }
+
+
+
 
 }
