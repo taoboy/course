@@ -12,7 +12,7 @@ import java.util.*;
 
 public class VueGenerator {
 
-    static String MODULE = "file";
+    static String MODULE = "system";
     static String toVuePath = "admin\\src\\views\\admin\\";
     //要生成的文件的路径
     static String generatorConfigPath =  "server\\src\\main\\resources\\generator\\generatorConfig.xml";
