@@ -71,7 +71,7 @@
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">登陆名</label>
                                           <div class="col-sm-10">
-                                              <input v-model="user.loginName" class="form-control">
+                                              <input v-model="user.loginName" v-bind:disabled="user.id" class="form-control" >
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -165,7 +165,7 @@
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/save',_this.user)
                     .then((response) => {
                         Loading.hide();
-
+                        //在这里校验异常
                         let resp = response.data;
                         if (resp.success){
                             $("#form-modal").modal("hide");
