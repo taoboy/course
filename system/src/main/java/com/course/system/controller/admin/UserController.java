@@ -56,4 +56,20 @@ public class UserController {
         userService.delete(id);
         return responseDto;
     }
+
+    /**
+     * 重置密码
+     * @param userDto
+     * @return
+     */
+    @PostMapping("/save-password")
+    public ResponseDto savePassword(@RequestBody UserDto userDto){
+        userDto.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
+
+
+        ResponseDto responseDto = new ResponseDto();
+        userService.savePassword(userDto);
+        responseDto.setContent(userDto);
+        return responseDto;
+    }
 }
