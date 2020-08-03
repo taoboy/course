@@ -2,6 +2,7 @@ package com.course.server.service.admin;
 
 import com.course.server.domain.User;
 import com.course.server.domain.UserExample;
+import com.course.server.dto.LoginUserDto;
 import com.course.server.dto.UserDto;
 import com.course.server.dto.PageDto;
 import com.course.server.exception.BusinessException;
@@ -11,6 +12,8 @@ import com.course.server.util.CopyUtil;
 import com.course.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +25,8 @@ import java.util.List;
 
 @Service
 public class UserService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     @Resource
     private UserMapper userMapper;
@@ -97,4 +102,26 @@ public class UserService {
         userMapper.updateByPrimaryKeySelective(user);
     }
 
+    /**
+     * 登录
+     * @param userDto
+     */
+    public LoginUserDto login(UserDto userDto) {
+        //登录验证思考：是否是根据用户名+密码到数据中去查找记录？
+        //用户名+密码去数据库查找的话，程序不知道是用户名不对，还是密码不对。
+        //程序应该要能知道，比如我如果发现有大量的用户名不对的报错，说明有人正在不断的探测我系统的用户名
+        User user = selectByLoginName(userDto.getLoginName());
+        if (user == null){
+            LOG.info("用户名不存在:{}",userDto.getLoginName());
+            throw new BusinessException(BusinessExceptionCode.LOGIN_USER_ERROR);
+        }else {
+            if (user.getPassword().equals(userDto.getPassword())){
+                //登录成功
+                return CopyUtil.copy(user,LoginUserDto.class);
+            }else {
+                LOG.info("密码不对，输入密码:{},数据库密码:{}",userDto.getPassword(),user.getPassword());
+                throw new BusinessException(BusinessExceptionCode.LOGIN_USER_ERROR);
+            }
+        }
+    }
 }
