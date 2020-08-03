@@ -48,7 +48,7 @@
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input type="checkbox" class="ace"/>
+                                                        <input v-model="remember" type="checkbox" class="ace"/>
                                                         <span class="lbl">记住我</span>
                                                     </label>
 
@@ -84,27 +84,45 @@
         data:function(){
             return {
                 user:{},
+                remember: true,
+                loginUser:{}
             }
         },
         mounted:function(){
+            let _this = this;
             $('body').removeClass('class', 'no-skin');
             $('body').attr('class', 'login-layout light-login');
-
+            let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER)
+            if (rememberUser){
+                _this.user = rememberUser;
+            }
         },
         methods: {
             login(){
                 let _this = this;
-
+                let passwordShow = _this.user.password;
                 _this.user.password = hex_md5(_this.user.password + KEY);
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/user/login',_this.user)
                     .then((response) => {
                         Loading.hide();
-                        //在这里校验异常
                         let resp = response.data;
                         if (resp.success){
                             console.log(resp.content);
+                            let loginUser = resp.content;
                             Tool.setLoginUser(resp.content)
+                            if (_this.remember) {
+                                //如果勾选记住我，则将用户密码保存到本地缓存，这里需要保存密码明文，否则登录时又会再加一层密
+                                LocalStorage.set(LOCAL_KEY_REMEMBER_USER,{
+                                    loginName: loginUser.loginName,
+                                    password: passwordShow
+                                });
+
+                            }else {
+                                //没有勾选“记住我”，要把本地缓存清空，否则按照mounted的逻辑，下次打开时会自动显示用户名密码
+                                LocalStorage.set("loginUser",null);
+                            }
+
                             _this.$router.push("/welcome")
                         }else {
                             Toast.warning(resp.message)
