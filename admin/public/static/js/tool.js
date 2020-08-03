@@ -85,5 +85,19 @@ Tool = {
         return arr.join('');
     },
 
+    /**
+     * 保存登录用户
+     */
+    setLoginUser: function (loginUser) {
+        SessionStorage.set(SESSION_KEY_LOGIN_USER,loginUser)
+    },
+
+    /**
+     * 获取登录用户信息
+     */
+    getLoginUser: function () {
+        //避免报错，加||{}
+        return SessionStorage.get(SESSION_KEY_LOGIN_USER) || {};
+    },
 
 };
