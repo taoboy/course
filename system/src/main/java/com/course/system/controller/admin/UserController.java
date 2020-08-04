@@ -8,6 +8,7 @@ import com.course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -74,6 +75,27 @@ public class UserController {
     public ResponseDto login(@RequestBody UserDto userDto, HttpServletRequest request){
         userDto.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
         ResponseDto responseDto = new ResponseDto();
+
+        // 根据验证码token去获取缓存中的验证码，和用户输入的验证码是否一致
+         String imageCode = (String) request.getSession().getAttribute(userDto.getImageCodeToken());
+
+        LOG.info("从redis中获取到的验证码：{}", imageCode);
+        if (StringUtils.isEmpty(imageCode)) {
+            responseDto.setSuccess(false);
+            responseDto.setMessage("验证码已过期");
+            LOG.info("用户登录失败，验证码已过期");
+            return responseDto;
+        }
+        if (!imageCode.toLowerCase().equals(userDto.getImageCode().toLowerCase())) {
+            responseDto.setSuccess(false);
+            responseDto.setMessage("验证码不对");
+            LOG.info("用户登录失败，验证码不对");
+            return responseDto;
+        } else {
+            // 验证通过后，移除验证码
+            request.getSession().removeAttribute(userDto.getImageCodeToken());
+
+        }
         LoginUserDto loginUserDto = userService.login(userDto);
         request.getSession().setAttribute(Constants.LOGIN_USER,loginUserDto);
         responseDto.setContent(loginUserDto);

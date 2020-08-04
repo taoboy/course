@@ -34,7 +34,7 @@ public class KaptchaController {
             String createText = defaultKaptcha.createText();
 
             // 将生成的验证码放入会话缓存中，后续验证的时候用到
-            // request.getSession().setAttribute(imageCodeToken, createText);
+             request.getSession().setAttribute(imageCodeToken, createText);
             // 将生成的验证码放入redis缓存中，后续验证的时候用到
 
             // 使用验证码字符串生成验证码图片

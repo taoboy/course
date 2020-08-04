@@ -8,7 +8,7 @@ import filter from './filter/filter'
 Vue.config.productionTip = false;
 Vue.prototype.$ajax = axios;
 
-
+axios.defaults.withCredentials = true;
 /**
  * axios拦截器
  */

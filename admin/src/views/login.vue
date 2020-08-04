@@ -96,7 +96,8 @@
             return {
                 user:{},
                 remember: true,
-                loginUser:{}
+                loginUser:{},
+                imageCodeToken: ""
             }
         },
         mounted:function(){
@@ -108,6 +109,7 @@
                 _this.user = rememberUser;
             }
 
+
             //初始时加载一次验证码图片
             _this.loadImageCode();
         },
@@ -118,6 +120,7 @@
 
                 //如果密码是从缓存带来的，则不需要重新加密
                 let md5 = hex_md5(_this.user.password)
+                _this.user.imageCodeToken = _this.imageCodeToken;
                 let rememberUser = LocalStorage.get(LOCAL_KEY_REMEMBER_USER) || {};
                 if (md5 != rememberUser.md5){
                     _this.user.password = hex_md5(_this.user.password + KEY);
@@ -150,6 +153,8 @@
                             _this.$router.push("/welcome")
                         }else {
                             Toast.warning(resp.message)
+                            _this.user.password = "";
+                            _this.loadImageCode();
                         }
                     })
             },
