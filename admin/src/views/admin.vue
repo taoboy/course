@@ -564,7 +564,7 @@
                 //一般登录信息在前后端都会保存
                 let _this = this;
                 Loading.show();
-                _this.$ajax.get(process.env.VUE_APP_SERVER + '/system/admin/user/logout')
+                _this.$ajax.get(process.env.VUE_APP_SERVER + '/system/admin/user/logout/' + _this.loginUser.token)
                     .then((response) => {
                         Loading.hide();
                         //在这里校验异常

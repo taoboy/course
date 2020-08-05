@@ -18,9 +18,30 @@ public class LoginUserDto {
      */
     private String name;
 
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("LoginUserDto{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", loginName='").append(loginName).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", token='").append(token).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     /**
-     * 密码
+     * 登录凭证
      */
+    private String token;
 
 
     public String getId() {
@@ -47,18 +68,5 @@ public class LoginUserDto {
         this.name = name;
     }
 
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", loginName=").append(loginName);
-        sb.append(", name=").append(name);
-        sb.append("]");
-        return sb.toString();
-    }
 
 }
