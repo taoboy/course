@@ -59,3 +59,4 @@
         <!--<table tableName="member_course" domainObjectName="MemberCourse"/>-->
     </context>
 </generatorConfiguration>
+
