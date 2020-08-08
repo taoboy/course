@@ -22,6 +22,8 @@ public class RoleDto {
 
     private List<String> resourceIds;
 
+    private List<String> userIds;
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("RoleDto{");
@@ -29,8 +31,17 @@ public class RoleDto {
         sb.append(", name='").append(name).append('\'');
         sb.append(", desc='").append(desc).append('\'');
         sb.append(", resourceIds=").append(resourceIds);
+        sb.append(", userIds=").append(userIds);
         sb.append('}');
         return sb.toString();
+    }
+
+    public List<String> getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(List<String> userIds) {
+        this.userIds = userIds;
     }
 
     public List<String> getResourceIds() {

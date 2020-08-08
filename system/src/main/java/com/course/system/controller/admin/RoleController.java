@@ -79,4 +79,14 @@ public class RoleController {
         responseDto.setContent(resourceIdList);
         return responseDto;
     }
+
+    @PostMapping("/save-user")
+    public ResponseDto saveUser(@RequestBody RoleDto roleDto){
+        LOG.info("保存角色用户关联开始");
+        ResponseDto<RoleDto> responseDto = new ResponseDto<>();
+        roleService.saveUser(roleDto);
+        responseDto.setContent(roleDto);
+        return responseDto;
+    }
+
 }
