@@ -285,7 +285,7 @@
                 _this.$ajax.get(process.env.VUE_APP_SERVER + '/system/admin/role/list-resource/' + _this.role.id)
                     .then((response)=> {
                     let resp = response.data;
-                    let resource = resp.content;
+                    let resources = resp.content;
 
                     //勾选查询到的资源，先把树的所有节点清空勾选，再勾选查询到的节点
                     _this.zTree.checkAllNodes(false);
