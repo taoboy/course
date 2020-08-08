@@ -379,10 +379,9 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="">
-                                <a href="jqgrid.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    权限管理
+                            <li class="" id="system-resource-sidebar">
+                                <a href="/system/resource">
+                                  资源管理
                                 </a>
 
                                 <b class="arrow"></b>

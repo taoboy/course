@@ -117,7 +117,6 @@
             login(){
                 let _this = this;
                 //let passwordShow = _this.user.password;
-
                 //如果密码是从缓存带来的，则不需要重新加密
                 let md5 = hex_md5(_this.user.password)
                 _this.user.imageCodeToken = _this.imageCodeToken;
