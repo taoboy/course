@@ -1,17 +1,26 @@
 <template>
     <div>
         <p>
-            <button v-on:click="add()" class="btn btn-white btn-default btn-round">
-                <i class="ace-icon fa fa-edit"></i>
-                添加
-            </button>
+
             &nbsp;
             <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
             <i class="ace-icon fa fa-refresh"></i>
             刷新
-        </button>
+            </button>
 
         </p>
+        <div class="row">
+            <div class="col-md-6">
+                <textarea id="resource-textarea" class="form-control" v-model="resourceStr" name="resource" rows="10"></textarea>
+
+                <br>
+                <button id="save-btn" type="button" class="btn btn-primary" v-on:click="save()">
+                    保存
+                </button>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
 
         <!--第二步：放在需要显示的地方
             v-bind:list="list",前面的list，
@@ -57,52 +66,6 @@
 
         </tbody>
     </table>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">表单</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal">
-
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">名称</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="resource.name" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">页面</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="resource.page" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">请求</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="resource.request" class="form-control">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">父id</label>
-                                          <div class="col-sm-10">
-                                              <input v-model="resource.parent" class="form-control">
-                                          </div>
-                                      </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" v-on:click="save">保存</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 </template>
@@ -117,6 +80,7 @@
             return {
                 resource:{},
                 resources:[],
+                resourceStr: "",
             }
         },
 
@@ -127,17 +91,6 @@
             _this.list(1);
         },
         methods: {
-            add(){
-                let _this = this;
-                _this.resource={};
-                $("#form-modal").modal("show");
-            },
-
-            edit(resource){
-                let _this = this;
-                _this.resource =  $.extend({},resource);
-                $("#form-modal").modal("show");
-            },
 
             list(page){
                 let _this = this;
@@ -158,19 +111,15 @@
             save(){
                 let _this = this;
 
-                // 保存校验
-                if (1 != 1
-                      || !Validator.require(_this.resource.name, "名称")
-                      || !Validator.length(_this.resource.name, "名称", 1, 100)
-                      || !Validator.length(_this.resource.page, "页面", 1, 50)
-                      || !Validator.length(_this.resource.request, "请求", 1, 200)
-                ) {
+                //保存校验
+                if (Tool.isEmpty(_this.resourceStr)){
+                    Tool.warning("资源不能为空!");
                     return;
                 }
-
+                let json = JSON.parse(_this.resourceStr);
 
                 Loading.show();
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/resource/save',_this.resource)
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/system/admin/resource/save',json)
                     .then((response) => {
                         Loading.hide();
 
