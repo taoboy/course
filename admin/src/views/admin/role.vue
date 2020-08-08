@@ -377,6 +377,7 @@
                     let resp = response.data;
                     if (resp.success) {
                         _this.users = resp.content.list;
+                        _this.listRoleUser();
                         console.log(_this.users)
                     } else {
                         Toast.warning(resp.message);
@@ -390,7 +391,6 @@
              */
             addUser(user) {
                 let _this = this;
-
                 // 如果当前要添加的用户在右边列表中已经有了，则不用再添加
                 let users = _this.roleUsers;
                 for (let i = 0; i < users.length; i++) {
@@ -433,6 +433,26 @@
                         Toast.warning(resp.message);
                     }
                 })
+            },
+            /**
+             * 加载角色用户
+             */
+            listRoleUser() {
+                let _this = this;
+                _this.roleUsers = [];
+                _this.$ajax.get(process.env.VUE_APP_SERVER + '/system/admin/role/list-user/' + _this.role.id).then((res)=>{
+                    let response = res.data;
+                    let userIds = response.content;
+
+                    // 根据加载到用户ID，到【所有用户数组：users】中查找用户对象，用于列表显示
+                    for (let i = 0; i < userIds.length; i++) {
+                        for (let j = 0; j < _this.users.length; j++) {
+                            if (userIds[i] === _this.users[j].id) {
+                                _this.roleUsers.push(_this.users[j]);
+                            }
+                        }
+                    }
+                });
             },
         }
     }

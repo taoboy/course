@@ -124,4 +124,20 @@ public class RoleService {
         }
 
     }
+
+    /**
+     * 按角色加载用户
+     * @param roleId
+     * @return
+     */
+    public List<String> listUser(String roleId) {
+        RoleUserExample example = new RoleUserExample();
+        example.createCriteria().andRoleIdEqualTo(roleId);
+        List<RoleUser> roleUserList = roleUserMapper.selectByExample(example);
+        List<String> userIdList =new ArrayList<>();
+        for (int i = 0, l = roleUserList.size(); i < l; i++){
+            userIdList.add(roleUserList.get(i).getUserId());
+        }
+        return userIdList;
+    }
 }
