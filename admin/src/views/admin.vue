@@ -386,6 +386,14 @@
 
                                 <b class="arrow"></b>
                             </li>
+
+                            <li class="" id="system-role-sidebar">
+                                <a href="/system/role">
+                                    角色管理
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
                         </ul>
                     </li>
 
