@@ -144,6 +144,7 @@ public class UserService {
         loginUserDto.setResources(resourceDtoList);
 
         //整理所有有权限的请求，用于接口拦截
+        //权限有重复的，使用set数据结构
         HashSet<String> requestSet = new HashSet<>();
         if (!CollectionUtils.isEmpty(resourceDtoList)){
             for (int i = 0, l = resourceDtoList.size(); i < l; i++){
